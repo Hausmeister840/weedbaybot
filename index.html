@@ -6,20 +6,355 @@
     <title>Weedbay Bot Mini App</title>
     <!-- Telegram Web App SDK einbinden -->
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Stil hinzufügen -->
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            background-color: #121212;
+            color: #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        header {
+            width: 100%;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        header img {
+            width: 120px;
+            margin-bottom: 10px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            color: #00C853;
+            margin-bottom: 10px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        p {
+            font-size: 1.1rem;
+            margin-bottom: 30px;
+            text-align: center;
+            max-width: 700px;
+            line-height: 1.6;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-bottom: 40px;
+            justify-content: center;
+            animation: fadeInUp 2s ease-out;
+        }
+
+        button {
+            padding: 15px 25px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            color: #fff;
+            background-color: #00C853;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            width: 220px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        button:hover {
+            background-color: #00B248;
+            transform: translateY(-2px);
+        }
+
+        .info-section, .testimonials, .contact-form {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 40px;
+            background-color: #1e1e1e;
+            padding: 25px 20px;
+            border-radius: 10px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .info-section h2, .testimonials h2, .contact-form h2 {
+            color: #00C853;
+            margin-bottom: 15px;
+            font-size: 1.8rem;
+            text-align: center;
+        }
+
+        .info-section ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .info-section li {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            font-size: 1.1rem;
+        }
+
+        .info-section li::before {
+            content: '✔️';
+            margin-right: 10px;
+            color: #00C853;
+            font-size: 1.2rem;
+        }
+
+        .testimonials .testimonial {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .testimonials .testimonial:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .testimonials p {
+            font-style: italic;
+            margin-bottom: 10px;
+        }
+
+        .testimonials .author {
+            text-align: right;
+            font-weight: bold;
+            color: #00C853;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .social-links a {
+            color: #00C853;
+            text-decoration: none;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+
+        .social-links a:hover {
+            color: #00B248;
+        }
+
+        .footer {
+            width: 100%;
+            text-align: center;
+            font-size: 0.9rem;
+            color: #757575;
+            margin-top: auto;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .contact-form form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            resize: none;
+        }
+
+        .contact-form button {
+            background-color: #00C853;
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background-color: #00B248;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+            }
+
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            button {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .info-section, .testimonials, .contact-form {
+                padding: 20px 15px;
+            }
+        }
+    </style>
 </head>
 <body>
-    <h1>Willkommen zur Weedbay Bot Mini App!</h1>
-    <p>Dies ist eine einfache Mini App, die direkt in Telegram läuft.</p>
+    <header>
+        <img src="https://yourlogo.com/logo.png" alt="Weedbay Logo">
+        <h1>Weedbay Bot Mini App</h1>
+    </header>
+
+    <p>Willkommen zur Weedbay Bot Mini App! Interagiere direkt in Telegram mit unserem Bot und kaufe WBC Tokens einfach, sicher und schnell. Erlebe die Vorteile unserer exklusiven Token und werde Teil einer wachsenden Community.</p>
     
-    <button onclick="sendMessage()">Nachricht an den Bot senden</button>
+    <div class="buttons">
+        <button onclick="buyTokens()">
+            🛒 WBC Tokens kaufen
+        </button>
+        <button onclick="viewFAQ()">
+            ❓ FAQ ansehen
+        </button>
+        <button onclick="contactSupport()">
+            💬 Support kontaktieren
+        </button>
+    </div>
+
+    <div class="info-section">
+        <h2>Warum WBC Tokens?</h2>
+        <ul>
+            <li>Sichere und schnelle Transaktionen</li>
+            <li>Exklusive Vorteile und Rabatte</li>
+            <li>Teil einer wachsenden Community</li>
+            <li>Einfache Verwaltung deiner Token</li>
+            <li>Belohnungen und Incentives für treue Nutzer</li>
+        </ul>
+    </div>
+
+    <div class="testimonials">
+        <h2>Was unsere Nutzer sagen</h2>
+        <div class="testimonial">
+            <p>"Der Kauf von WBC Tokens war super einfach und ich habe tolle Vorteile erhalten!"</p>
+            <div class="author">– Alex M.</div>
+        </div>
+        <div class="testimonial">
+            <p>"Die Weedbay Community ist großartig und die Tokens bieten echte Mehrwerte."</p>
+            <div class="author">– Lena K.</div>
+        </div>
+        <div class="testimonial">
+            <p>"Ich liebe die Sicherheit und Schnelligkeit der Transaktionen mit WBC."</p>
+            <div class="author">– Tobias S.</div>
+        </div>
+    </div>
+
+    <div class="contact-form">
+        <h2>Kontaktieren Sie uns</h2>
+        <form onsubmit="submitForm(event)">
+            <input type="text" id="name" name="name" placeholder="Dein Name" required>
+            <input type="email" id="email" name="email" placeholder="Deine E-Mail" required>
+            <textarea id="message" name="message" rows="4" placeholder="Deine Nachricht" required></textarea>
+            <button type="submit">Nachricht senden</button>
+        </form>
+    </div>
+
+    <div class="social-links">
+        <a href="https://twitter.com/weedbay" target="_blank" aria-label="Twitter">🐦</a>
+        <a href="https://discord.gg/weedbay" target="_blank" aria-label="Discord">💬</a>
+        <a href="https://instagram.com/weedbay" target="_blank" aria-label="Instagram">📸</a>
+        <a href="https://facebook.com/weedbay" target="_blank" aria-label="Facebook">📘</a>
+    </div>
+
+    <div class="footer">© 2024 Weedbay Club | Alle Rechte vorbehalten</div>
 
     <script>
         // Telegram Mini App initialisieren
         Telegram.WebApp.ready();
 
         // Funktion, um eine Nachricht an den Bot zu senden
-        function sendMessage() {
-            Telegram.WebApp.sendData("Hallo, ich bin eine Nachricht von der Weedbay Mini App!");
+        function sendMessage(data) {
+            Telegram.WebApp.sendData(data);
+        }
+
+        // Funktion zum Kaufen von WBC Tokens
+        function buyTokens() {
+            sendMessage("Kaufe WBC Tokens");
+            // Weiterleitung oder Integration eines Zahlungs-Gateways
+            alert("Weiterleitung zum Kauf von WBC Tokens...");
+            // Beispiel: window.location.href = "https://yourpaymentgateway.com/buy";
+        }
+
+        // Funktion zum Anzeigen der FAQ
+        function viewFAQ() {
+            sendMessage("FAQ anzeigen");
+            // Öffnen einer Modal oder Weiterleitung zu einer FAQ-Seite
+            alert("Hier werden die häufig gestellten Fragen angezeigt.");
+            // Beispiel: window.location.href = "#faq-section";
+        }
+
+        // Funktion zum Kontaktieren des Supports
+        function contactSupport() {
+            sendMessage("Support kontaktieren");
+            // Öffnen einer Kontaktformular oder direkter Nachricht an den Support
+            alert("Support wird kontaktiert...");
+            // Beispiel: Öffnen eines Chat-Fensters oder Kontaktformulars
+        }
+
+        // Funktion zum Verarbeiten des Kontaktformulars
+        function submitForm(event) {
+            event.preventDefault();
+            const name = document.getElementById('name').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const message = document.getElementById('message').value.trim();
+
+            if(name && email && message) {
+                // Hier kannst du die Daten an dein Backend senden
+                console.log("Formular gesendet:", { name, email, message });
+                alert("Vielen Dank für deine Nachricht! Wir werden uns bald bei dir melden.");
+                // Formular zurücksetzen
+                event.target.reset();
+            } else {
+                alert("Bitte fülle alle Felder aus.");
+            }
         }
     </script>
 </body>
