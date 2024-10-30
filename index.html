@@ -8,8 +8,29 @@
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome für Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Chart.js für interaktive Charts -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Stil hinzufügen -->
     <style>
+        :root {
+            --primary-color: #00C853;
+            --secondary-color: #1e1e1e;
+            --background-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #00B248;
+            --light-background: #ffffff;
+            --light-text: #000000;
+        }
+
+        [data-theme="light"] {
+            --background-color: #ffffff;
+            --text-color: #000000;
+            --secondary-color: #f0f0f0;
+            --accent-color: #00C853;
+        }
+
         * {
             box-sizing: border-box;
             margin: 0;
@@ -18,20 +39,22 @@
 
         body {
             font-family: 'Roboto', sans-serif;
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: var(--background-color);
+            color: var(--text-color);
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: flex-start;
             min-height: 100vh;
             padding: 20px;
+            transition: background-color 0.3s, color 0.3s;
         }
 
         header {
             width: 100%;
             text-align: center;
             margin-bottom: 30px;
+            position: relative;
         }
 
         header img {
@@ -39,9 +62,19 @@
             margin-bottom: 10px;
         }
 
+        /* Dark/Light Mode Toggle */
+        .theme-toggle {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            cursor: pointer;
+            font-size: 1.5rem;
+            color: var(--primary-color);
+        }
+
         h1 {
             font-size: 2.5rem;
-            color: #00C853;
+            color: var(--primary-color);
             margin-bottom: 10px;
             animation: fadeInDown 1s ease-out;
         }
@@ -53,6 +86,14 @@
             max-width: 700px;
             line-height: 1.6;
             animation: fadeIn 1.5s ease-out;
+        }
+
+        /* Einführungsvideo */
+        .intro-video {
+            width: 100%;
+            max-width: 800px;
+            margin-bottom: 40px;
+            animation: fadeIn 2s ease-out;
         }
 
         .buttons {
@@ -69,7 +110,7 @@
             font-size: 1.1rem;
             font-weight: bold;
             color: #fff;
-            background-color: #00C853;
+            background-color: var(--primary-color);
             border: none;
             border-radius: 8px;
             cursor: pointer;
@@ -82,22 +123,36 @@
         }
 
         button:hover {
-            background-color: #00B248;
+            background-color: var(--accent-color);
             transform: translateY(-2px);
         }
 
-        .info-section, .testimonials, .contact-form {
+        /* Countdown Timer */
+        .countdown {
+            font-size: 1.2rem;
+            margin-bottom: 40px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        /* Live Token Price Ticker */
+        .token-ticker {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .info-section, .testimonials, .contact-form, .newsletter, .blog {
             width: 100%;
             max-width: 800px;
             margin-bottom: 40px;
-            background-color: #1e1e1e;
+            background-color: var(--secondary-color);
             padding: 25px 20px;
             border-radius: 10px;
             animation: fadeIn 2s ease-out;
         }
 
-        .info-section h2, .testimonials h2, .contact-form h2 {
-            color: #00C853;
+        .info-section h2, .testimonials h2, .contact-form h2, .newsletter h2, .blog h2 {
+            color: var(--primary-color);
             margin-bottom: 15px;
             font-size: 1.8rem;
             text-align: center;
@@ -118,10 +173,22 @@
         .info-section li::before {
             content: '✔️';
             margin-right: 10px;
-            color: #00C853;
+            color: var(--primary-color);
             font-size: 1.2rem;
         }
 
+        /* Interaktive Charts */
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        /* Testimonials */
         .testimonials .testimonial {
             margin-bottom: 20px;
             padding-bottom: 20px;
@@ -142,9 +209,63 @@
         .testimonials .author {
             text-align: right;
             font-weight: bold;
-            color: #00C853;
+            color: var(--primary-color);
         }
 
+        /* Newsletter Subscription */
+        .newsletter form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .newsletter input[type="email"] {
+            padding: 10px 15px;
+            font-size: 1rem;
+            border: none;
+            border-radius: 5px;
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+        }
+
+        .newsletter button {
+            background-color: var(--primary-color);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            font-size: 1rem;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .newsletter button:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* Blog Section */
+        .blog .post {
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            border-bottom: 1px solid #333;
+        }
+
+        .blog .post:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .blog .post h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .blog .post p {
+            line-height: 1.6;
+        }
+
+        /* Social Links */
         .social-links {
             display: flex;
             justify-content: center;
@@ -154,16 +275,17 @@
         }
 
         .social-links a {
-            color: #00C853;
+            color: var(--primary-color);
             text-decoration: none;
             font-size: 1.5rem;
             transition: color 0.3s ease;
         }
 
         .social-links a:hover {
-            color: #00B248;
+            color: var(--accent-color);
         }
 
+        /* Footer */
         .footer {
             width: 100%;
             text-align: center;
@@ -173,6 +295,7 @@
             animation: fadeIn 3s ease-out;
         }
 
+        /* Contact Form */
         .contact-form form {
             display: flex;
             flex-direction: column;
@@ -190,7 +313,7 @@
         }
 
         .contact-form button {
-            background-color: #00C853;
+            background-color: var(--primary-color);
             color: #fff;
             border: none;
             padding: 12px;
@@ -201,9 +324,35 @@
         }
 
         .contact-form button:hover {
-            background-color: #00B248;
+            background-color: var(--accent-color);
         }
 
+        /* Security Badges */
+        .security-badges {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .security-badges img {
+            width: 50px;
+        }
+
+        /* Barrierefreiheit */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            border: 0;
+        }
+
+        /* Animationen */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
@@ -219,6 +368,7 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Responsive Design */
         @media (max-width: 768px) {
             h1 {
                 font-size: 2rem;
@@ -234,7 +384,7 @@
                 max-width: 300px;
             }
 
-            .info-section, .testimonials, .contact-form {
+            .info-section, .testimonials, .contact-form, .newsletter, .blog, .chart-container {
                 padding: 20px 15px;
             }
         }
@@ -244,7 +394,29 @@
     <header>
         <img src="cropped-weedbay-1 (1)-min.jpg" alt="Weedbay Logo">
         <h1>Weedbay Bot Mini App</h1>
+        <!-- Dark/Light Mode Toggle -->
+        <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
+            <i class="fas fa-moon"></i>
+        </div>
     </header>
+
+    <!-- Live Token Price Ticker -->
+    <div class="token-ticker">
+        Aktueller WBC Preis: <span id="tokenPrice">0.00 USD</span>
+    </div>
+
+    <!-- Countdown Timer -->
+    <div class="countdown">
+        Nächste Aktion startet in: <span id="countdownTimer">00:00:00</span>
+    </div>
+
+    <!-- Einführungsvideo -->
+    <div class="intro-video">
+        <video width="100%" height="auto" controls>
+            <source src="intro.mp4" type="video/mp4">
+            Ihr Browser unterstützt das Video-Tag nicht.
+        </video>
+    </div>
 
     <p>Willkommen zur Weedbay Bot Mini App! Interagiere direkt in Telegram mit unserem Bot und kaufe WBC Tokens einfach, sicher und schnell. Erlebe die Vorteile unserer exklusiven Token und werde Teil einer wachsenden Community.</p>
     
@@ -258,8 +430,17 @@
         <button onclick="contactSupport()">
             💬 Support kontaktieren
         </button>
+        <button onclick="referralProgram()">
+            🤝 Referral Programm
+        </button>
     </div>
 
+    <!-- Interaktive Charts -->
+    <div class="chart-container">
+        <canvas id="tokenChart"></canvas>
+    </div>
+
+    <!-- Informationssektion -->
     <div class="info-section">
         <h2>Warum WBC Tokens?</h2>
         <ul>
@@ -271,6 +452,7 @@
         </ul>
     </div>
 
+    <!-- Testimonials -->
     <div class="testimonials">
         <h2>Was unsere Nutzer sagen</h2>
         <div class="testimonial">
@@ -287,6 +469,44 @@
         </div>
     </div>
 
+    <!-- Newsletter Subscription -->
+    <div class="newsletter">
+        <h2>Newsletter abonnieren</h2>
+        <form onsubmit="subscribeNewsletter(event)">
+            <input type="email" id="newsletterEmail" name="email" placeholder="Deine E-Mail" required>
+            <button type="submit">Abonnieren</button>
+        </form>
+    </div>
+
+    <!-- Blog Section -->
+    <div class="blog">
+        <h2>Neuigkeiten & Blog</h2>
+        <div class="post">
+            <h3>Neuer WBC Token Launch</h3>
+            <p>Wir freuen uns, den Start unseres neuen WBC Tokens bekannt zu geben. Erfahren Sie mehr über die aufregenden Funktionen und Vorteile.</p>
+        </div>
+        <div class="post">
+            <h3>Community Update</h3>
+            <p>Unsere Community wächst stetig! Schließen Sie sich uns an und profitieren Sie von exklusiven Vorteilen.</p>
+        </div>
+    </div>
+
+    <!-- Sicherheitsabzeichen -->
+    <div class="security-badges">
+        <img src="security1.png" alt="Sicherheitsabzeichen 1">
+        <img src="security2.png" alt="Sicherheitsabzeichen 2">
+        <img src="security3.png" alt="Sicherheitsabzeichen 3">
+    </div>
+
+    <!-- Soziale Medien Links -->
+    <div class="social-links">
+        <a href="https://twitter.com/weedbay" target="_blank" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+        <a href="https://discord.gg/weedbay" target="_blank" aria-label="Discord"><i class="fab fa-discord"></i></a>
+        <a href="https://instagram.com/weedbay" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="https://facebook.com/weedbay" target="_blank" aria-label="Facebook"><i class="fab fa-facebook"></i></a>
+    </div>
+
+    <!-- Kontaktformular -->
     <div class="contact-form">
         <h2>Kontaktieren Sie uns</h2>
         <form onsubmit="submitForm(event)">
@@ -297,25 +517,107 @@
         </form>
     </div>
 
-    <div class="social-links">
-        <a href="https://twitter.com/weedbay" target="_blank" aria-label="Twitter">🐦</a>
-        <a href="https://discord.gg/weedbay" target="_blank" aria-label="Discord">💬</a>
-        <a href="https://instagram.com/weedbay" target="_blank" aria-label="Instagram">📸</a>
-        <a href="https://facebook.com/weedbay" target="_blank" aria-label="Facebook">📘</a>
-    </div>
-
+    <!-- Footer -->
     <div class="footer">© 2024 Weedbay Club | Alle Rechte vorbehalten</div>
 
+    <!-- JavaScript -->
     <script>
         // Telegram Mini App initialisieren
         Telegram.WebApp.ready();
 
-        // Funktion, um eine Nachricht an den Bot zu senden
+        // Dark/Light Mode Toggle
+        function toggleTheme() {
+            const currentTheme = document.documentElement.getAttribute("data-theme");
+            if (currentTheme === "light") {
+                document.documentElement.setAttribute("data-theme", "dark");
+                document.querySelector('.theme-toggle i').classList.remove('fa-sun');
+                document.querySelector('.theme-toggle i').classList.add('fa-moon');
+            } else {
+                document.documentElement.setAttribute("data-theme", "light");
+                document.querySelector('.theme-toggle i').classList.remove('fa-moon');
+                document.querySelector('.theme-toggle i').classList.add('fa-sun');
+            }
+        }
+
+        // Live Token Price Simulation
+        function updateTokenPrice() {
+            // Placeholder: Hier kannst du eine API integrieren, um den echten Preis abzurufen
+            const price = (Math.random() * 10).toFixed(2);
+            document.getElementById('tokenPrice').innerText = `${price} USD`;
+        }
+        setInterval(updateTokenPrice, 5000); // Update alle 5 Sekunden
+        updateTokenPrice();
+
+        // Countdown Timer
+        function startCountdown(endTime) {
+            const countdownElement = document.getElementById('countdownTimer');
+            const interval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = endTime - now;
+
+                if (distance < 0) {
+                    clearInterval(interval);
+                    countdownElement.innerText = "Die Aktion hat begonnen!";
+                    return;
+                }
+
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                countdownElement.innerText = `${hours}h ${minutes}m ${seconds}s`;
+            }, 1000);
+        }
+
+        // Setze ein Beispiel-Enddatum für den Countdown
+        const promoEndTime = new Date().getTime() + (48 * 60 * 60 * 1000); // 48 Stunden von jetzt
+        startCountdown(promoEndTime);
+
+        // Interaktive Charts mit Chart.js
+        const ctx = document.getElementById('tokenChart').getContext('2d');
+        const tokenChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: [], // Zeitlabels
+                datasets: [{
+                    label: 'WBC Preis (USD)',
+                    data: [],
+                    borderColor: 'rgba(0, 200, 83, 1)',
+                    backgroundColor: 'rgba(0, 200, 83, 0.2)',
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    x: {
+                        type: 'realtime',
+                        realtime: {
+                            delay: 2000,
+                            onRefresh: chart => {
+                                chart.data.labels.push(new Date().toLocaleTimeString());
+                                chart.data.datasets[0].data.push(parseFloat(document.getElementById('tokenPrice').innerText));
+                            }
+                        }
+                    },
+                    y: {
+                        beginAtZero: false
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            }
+        });
+
+        // Placeholder Funktionen für Buttons
         function sendMessage(data) {
             Telegram.WebApp.sendData(data);
         }
 
-        // Funktion zum Kaufen von WBC Tokens
         function buyTokens() {
             sendMessage("Kaufe WBC Tokens");
             // Weiterleitung oder Integration eines Zahlungs-Gateways
@@ -323,7 +625,6 @@
             // Beispiel: window.location.href = "https://yourpaymentgateway.com/buy";
         }
 
-        // Funktion zum Anzeigen der FAQ
         function viewFAQ() {
             sendMessage("FAQ anzeigen");
             // Öffnen einer Modal oder Weiterleitung zu einer FAQ-Seite
@@ -331,7 +632,6 @@
             // Beispiel: window.location.href = "#faq-section";
         }
 
-        // Funktion zum Kontaktieren des Supports
         function contactSupport() {
             sendMessage("Support kontaktieren");
             // Öffnen einer Kontaktformular oder direkter Nachricht an den Support
@@ -339,7 +639,13 @@
             // Beispiel: Öffnen eines Chat-Fensters oder Kontaktformulars
         }
 
-        // Funktion zum Verarbeiten des Kontaktformulars
+        function referralProgram() {
+            sendMessage("Referral Programm");
+            // Implementiere Referral-Programm Logik
+            alert("Hier können Sie Ihr Referral-Programm nutzen.");
+        }
+
+        // Kontaktformular Verarbeiten
         function submitForm(event) {
             event.preventDefault();
             const name = document.getElementById('name').value.trim();
@@ -356,6 +662,26 @@
                 alert("Bitte fülle alle Felder aus.");
             }
         }
+
+        // Newsletter Subscription
+        function subscribeNewsletter(event) {
+            event.preventDefault();
+            const email = document.getElementById('newsletterEmail').value.trim();
+
+            if(email) {
+                // Hier kannst du die E-Mail an dein Backend senden
+                console.log("Newsletter abonniert:", email);
+                alert("Vielen Dank für das Abonnieren unseres Newsletters!");
+                // Formular zurücksetzen
+                event.target.reset();
+            } else {
+                alert("Bitte gib eine gültige E-Mail-Adresse ein.");
+            }
+        }
+
+        // Initialisiere den Token Chart
+        // Dies erfordert die Nutzung eines realen Daten-Streams für echte Anwendungen
+        // Hier simulieren wir nur die Aktualisierung der Chart-Daten
     </script>
 </body>
 </html>
