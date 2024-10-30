@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weedbay Bot Mini App</title>
+    <!-- Telegram Web App SDK einbinden -->
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+</head>
+<body>
+    <h1>Willkommen zur Weedbay Bot Mini App!</h1>
+    <p>Dies ist eine einfache Mini App, die direkt in Telegram läuft.</p>
+    
+    <button onclick="sendMessage()">Nachricht an den Bot senden</button>
+
+    <script>
+        // Telegram Mini App initialisieren
+        Telegram.WebApp.ready();
+
+        // Funktion, um eine Nachricht an den Bot zu senden
+        function sendMessage() {
+            Telegram.WebApp.sendData("Hallo, ich bin eine Nachricht von der Weedbay Mini App!");
+        }
+    </script>
+</body>
+</html>
