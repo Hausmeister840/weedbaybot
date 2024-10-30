@@ -58,7 +58,7 @@
         }
 
         header img {
-            width: 120px;
+            width: 100px; /* Größe des Logos */
             margin-bottom: 10px;
         }
 
@@ -76,7 +76,6 @@
             font-size: 2.5rem;
             color: var(--primary-color);
             margin-bottom: 10px;
-            animation: fadeInDown 1s ease-out;
         }
 
         p {
@@ -85,14 +84,30 @@
             text-align: center;
             max-width: 700px;
             line-height: 1.6;
-            animation: fadeIn 1.5s ease-out;
         }
 
-        /* Einführungsvideo */
-        .intro-video {
-            width: 100%;
-            max-width: 800px;
+        /* Countdown Timer */
+        .countdown {
+            font-size: 1.2rem;
             margin-bottom: 40px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        /* Live Token Price Ticker */
+        .token-ticker {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        /* Interaktive Charts */
+        .chart-container {
+            width: 100%;
+            height: 400px;
+            margin-bottom: 40px;
+            background-color: var(--secondary-color);
+            border-radius: 10px;
+            padding: 20px;
             animation: fadeIn 2s ease-out;
         }
 
@@ -102,7 +117,6 @@
             gap: 15px;
             margin-bottom: 40px;
             justify-content: center;
-            animation: fadeInUp 2s ease-out;
         }
 
         button {
@@ -127,20 +141,7 @@
             transform: translateY(-2px);
         }
 
-        /* Countdown Timer */
-        .countdown {
-            font-size: 1.2rem;
-            margin-bottom: 40px;
-            animation: fadeIn 2.5s ease-out;
-        }
-
-        /* Live Token Price Ticker */
-        .token-ticker {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            animation: fadeIn 2.5s ease-out;
-        }
-
+        /* Informationssektion */
         .info-section, .testimonials, .contact-form, .newsletter, .blog {
             width: 100%;
             max-width: 800px;
@@ -175,17 +176,6 @@
             margin-right: 10px;
             color: var(--primary-color);
             font-size: 1.2rem;
-        }
-
-        /* Interaktive Charts */
-        .chart-container {
-            width: 100%;
-            height: 400px;
-            margin-bottom: 40px;
-            background-color: var(--secondary-color);
-            border-radius: 10px;
-            padding: 20px;
-            animation: fadeIn 2s ease-out;
         }
 
         /* Testimonials */
@@ -265,7 +255,7 @@
             line-height: 1.6;
         }
 
-        /* Social Links */
+        /* Soziale Medien Links */
         .social-links {
             display: flex;
             justify-content: center;
@@ -295,7 +285,7 @@
             animation: fadeIn 3s ease-out;
         }
 
-        /* Contact Form */
+        /* Kontaktformular */
         .contact-form form {
             display: flex;
             flex-direction: column;
@@ -327,45 +317,10 @@
             background-color: var(--accent-color);
         }
 
-        /* Security Badges */
-        .security-badges {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-            margin-bottom: 30px;
-            animation: fadeIn 2s ease-out;
-        }
-
-        .security-badges img {
-            width: 50px;
-        }
-
-        /* Barrierefreiheit */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0,0,0,0);
-            border: 0;
-        }
-
         /* Animationen */
         @keyframes fadeIn {
             from { opacity: 0; }
             to { opacity: 1; }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-20px); }
-            to { opacity: 1; transform: translateY(0); }
         }
 
         /* Responsive Design */
@@ -392,7 +347,8 @@
 </head>
 <body>
     <header>
-        <img src="cropped-weedbay-1 (1)-min.jpg" alt="Weedbay Logo">
+        <!-- Logo einbinden -->
+        <img src="cropped-weedbay-1 (1)-min (3).jpg" alt="Weedbay Logo">
         <h1>Weedbay Bot Mini App</h1>
         <!-- Dark/Light Mode Toggle -->
         <div class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle Dark/Light Mode">
@@ -489,13 +445,6 @@
             <h3>Community Update</h3>
             <p>Unsere Community wächst stetig! Schließen Sie sich uns an und profitieren Sie von exklusiven Vorteilen.</p>
         </div>
-    </div>
-
-    <!-- Sicherheitsabzeichen -->
-    <div class="security-badges">
-        <img src="security1.png" alt="Sicherheitsabzeichen 1">
-        <img src="security2.png" alt="Sicherheitsabzeichen 2">
-        <img src="security3.png" alt="Sicherheitsabzeichen 3">
     </div>
 
     <!-- Soziale Medien Links -->
